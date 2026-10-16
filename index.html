@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bếp Nhà - Trợ lý lên thực đơn thông minh từ nguyên liệu sẵn có trong tủ lạnh. Tiết kiệm chi phí, giảm lãng phí thực phẩm, gợi ý món ngon chuẩn khẩu vị gia đình.">
+  <meta name="keywords" content="hôm nay ăn gì, lên thực đơn, nguyên liệu có sẵn, nấu ăn gia đình, công thức nấu ăn, bép nhà">
+  <meta name="author" content="Bếp Nhà Team">
+  <title>Bếp Nhà – Trợ Lý Lên Thực Đơn Thông Minh</title>
+
+  <!-- Google Fonts: Be Vietnam Pro for premium Vietnamese typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <div class="logo-icon-wrapper">
+          <span class="logo-emoji">🍳</span>
+          <span class="logo-sparkle">✨</span>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-title">Bếp Nhà</h1>
+          <span class="brand-tagline">Trợ lý lên thực đơn thông minh</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-db-viewer" class="btn btn-secondary btn-sm" title="Xem sơ đồ Relational Database & API Mock" aria-label="Xem cơ sở dữ liệu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3z"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/><path d="M4 18c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+          <span class="btn-text">Dữ liệu PRD (SQL)</span>
+        </button>
+
+        <button id="btn-theme-toggle" class="btn-icon" title="Chuyển chế độ sáng/tối" aria-label="Đổi giao diện">
+          <span class="theme-icon light-icon">🌙</span>
+          <span class="theme-icon dark-icon">☀️</span>
+        </button>
+
+        <button id="btn-open-cart" class="btn-cart" aria-label="Danh sách đi chợ">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-label">Đi chợ</span>
+          <span id="cart-badge" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="main-content">
+    <!-- Hero Banner with Quick Stats -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span>🌿 Giải phóng nỗi lo "Hôm nay ăn gì?"</span>
+        </div>
+        <h2 class="hero-heading">Nấu ngon mỗi ngày từ tủ lạnh có sẵn</h2>
+        <p class="hero-subtext">
+          Chỉ cần chọn nguyên liệu bạn đang có, Bếp Nhà sẽ tự động phân tích tỷ lệ khớp, quy đổi định lượng theo số người và tạo ngay danh sách mua sắm những thứ còn thiếu!
+        </p>
+
+        <!-- Demo Presets for quick exploration -->
+        <div class="demo-presets-wrapper">
+          <span class="presets-label">⚡ Thử nhanh kịch bản mẫu:</span>
+          <div class="presets-buttons">
+            <button class="preset-pill" data-preset="fridge-sample">
+              🥩 Tủ lạnh có thịt, trứng, cà chua (Mẫu PRD)
+            </button>
+            <button class="preset-pill" data-preset="beef-quick">
+              🥩 Bò & Hành tây (15 phút)
+            </button>
+            <button class="preset-pill" data-preset="tofu-healthy">
+              🌱 Đậu phụ & Cà chua (Tiết kiệm)
+            </button>
+            <button class="preset-pill" data-preset="full-fridge">
+              🍱 Tủ lạnh đầy ắp nguyên liệu
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats-card">
+        <div class="stat-item">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-meta">
+            <span class="stat-num">&lt; 3 Giây</span>
+            <span class="stat-desc">Gợi ý món ăn tối ưu</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">💰</div>
+          <div class="stat-meta">
+            <span class="stat-num">-35%</span>
+            <span class="stat-desc">Chi phí lãng phí thực phẩm</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">⚖️</div>
+          <div class="stat-meta">
+            <span class="stat-num">1 - 10 Người</span>
+            <span class="stat-desc">Tự động chuẩn hóa định lượng</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Configuration & Inputs Section -->
+    <section class="planner-grid">
+      <!-- Step 1: Input Nguyên liệu (FR-01) -->
+      <div class="planner-card input-card">
+        <div class="card-header">
+          <div class="step-badge">1</div>
+          <div class="card-title-group">
+            <h3 class="card-title">Tủ Lạnh Nhà Bạn Có Gì?</h3>
+            <p class="card-subtitle">Gõ tên hoặc nhấp chọn các nguyên liệu đang có sẵn</p>
+          </div>
+          <button id="btn-clear-ingredients" class="btn-text-danger" title="Xóa tất cả nguyên liệu đã chọn">
+            Xóa hết
+          </button>
+        </div>
+
+        <!-- Search Bar with Live Autocomplete -->
+        <div class="search-input-container">
+          <div class="search-input-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="ingredient-input" 
+              class="search-input" 
+              placeholder="Nhập nguyên liệu (vd: thịt lợn, trứng, cà chua, đậu phụ...)" 
+              autocomplete="off"
+            >
+            <button id="btn-add-input" class="btn btn-primary btn-sm" aria-label="Thêm nguyên liệu">
+              + Thêm
+            </button>
+          </div>
+          <!-- Autocomplete Dropdown List -->
+          <ul id="autocomplete-list" class="autocomplete-list" hidden></ul>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="category-tabs" role="tablist">
+          <button class="cat-tab active" data-category="all">Tất cả</button>
+          <button class="cat-tab" data-category="Thịt/Cá">🥩 Thịt & Cá</button>
+          <button class="cat-tab" data-category="Rau củ">🥦 Rau củ</button>
+          <button class="cat-tab" data-category="Khác">🥚 Trứng & Đậu</button>
+          <button class="cat-tab" data-category="Gia vị">🧂 Gia vị</button>
+        </div>
+
+        <!-- Available quick tags library -->
+        <div class="tags-library-container">
+          <div class="tags-header">
+            <span class="tags-title">Bấm để chọn nhanh:</span>
+            <span id="library-count" class="tags-count">7 nguyên liệu PRD</span>
+          </div>
+          <div id="quick-tags-list" class="quick-tags-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Selected Ingredients (My Fridge) -->
+        <div class="my-fridge-container">
+          <div class="fridge-header">
+            <div class="fridge-title-wrap">
+              <span class="fridge-icon">🧊</span>
+              <span class="fridge-title">Nguyên liệu hiện có trong tủ:</span>
+            </div>
+            <span id="selected-badge-count" class="badge-count">0 món</span>
+          </div>
+
+          <div id="selected-tags-box" class="selected-tags-box">
+            <div class="empty-fridge-state">
+              <span class="empty-icon">🥦</span>
+              <p>Chưa có nguyên liệu nào trong tủ lạnh. Hãy chọn từ danh sách trên hoặc gõ tìm kiếm nhé!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Thông số Bữa Ăn & Bộ Lọc Thông Minh (FR-02) -->
+      <div class="planner-card settings-card">
+        <div class="card-header">
+          <div class="step-badge">2</div>
+          <div class="card-title-group">
+            <h3 class="card-title">Tùy Chỉnh Bữa Ăn</h3>
+            <p class="card-subtitle">Cân chỉnh khẩu phần, thời gian nấu và ngân sách</p>
+          </div>
+        </div>
+
+        <div class="settings-form">
+          <!-- FR-04 & FR-02: Số người ăn (Khẩu phần) -->
+          <div class="form-group servings-group">
+            <div class="form-label-row">
+              <label for="servings-slider" class="form-label">
+                👥 Số người ăn (Khẩu phần):
+              </label>
+              <div class="servings-counter-display">
+                <span id="servings-value" class="servings-number">2</span>
+                <span class="servings-unit">người</span>
+              </div>
+            </div>
+
+            <div class="servings-control-wrap">
+              <button id="btn-servings-minus" class="stepper-btn" aria-label="Giảm 1 người">−</button>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="servings-slider" 
+                  class="range-slider" 
+                  min="1" 
+                  max="10" 
+                  value="2" 
+                  step="1"
+                >
+                <div class="range-marks">
+                  <span>1</span>
+                  <span>2 (Chuẩn)</span>
+                  <span>4</span>
+                  <span>6</span>
+                  <span>8</span>
+                  <span>10</span>
+                </div>
+              </div>
+              <button id="btn-servings-plus" class="stepper-btn" aria-label="Tăng 1 người">+</button>
+            </div>
+            <p class="form-hint" id="servings-hint">
+              💡 Khẩu phần chuẩn là 2 người. Hệ thống sẽ tự động nhân định lượng và giá nguyên liệu tương ứng.
+            </p>
+          </div>
+
+          <!-- FR-02: Thời gian nấu tối đa -->
+          <div class="form-group">
+            <label class="form-label">⏱️ Thời gian nấu tối đa:</label>
+            <div class="segment-options" id="time-filter-group">
+              <button class="segment-btn active" data-time="all">Tất cả</button>
+              <button class="segment-btn" data-time="15">Dưới 15' (Nhanh)</button>
+              <button class="segment-btn" data-time="30">15 - 30' (Vừa)</button>
+              <button class="segment-btn" data-time="60">30 - 60' (Kỹ)</button>
+            </div>
+          </div>
+
+          <!-- FR-02: Ngân sách dự kiến -->
+          <div class="form-group">
+            <label class="form-label">💰 Ngân sách dự kiến:</label>
+            <div class="segment-options" id="budget-filter-group">
+              <button class="segment-btn active" data-budget="all">Tất cả</button>
+              <button class="segment-btn" data-budget="Tiết kiệm">🌱 Tiết kiệm</button>
+              <button class="segment-btn" data-budget="Tiêu chuẩn">🍲 Tiêu chuẩn</button>
+              <button class="segment-btn" data-budget="Sang chảnh">✨ Sang chảnh</button>
+            </div>
+          </div>
+
+          <!-- CTA Gợi ý món ăn (FR-03 & User Flow Step 3: Smooth Scroll) -->
+          <div class="cta-wrapper">
+            <button id="btn-find-recipes" class="btn btn-primary btn-cta">
+              <span class="cta-icon">✨</span>
+              <span class="cta-text">Gợi Ý Món Ăn Ngay</span>
+              <span class="cta-arrow">↓</span>
+            </button>
+            <p class="cta-subhint">Độ trễ phản hồi thuật toán &lt; 5ms</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3: Danh Sách Gợi Ý Món Ăn (FR-03 & FR-06) -->
+    <section id="results-section" class="results-section">
+      <div class="results-header-bar">
+        <div class="results-title-group">
+          <div class="badge-accent">Kết quả gợi ý</div>
+          <h3 class="results-heading">
+            Món Ngon Dành Cho Bạn 
+            <span id="results-count-badge" class="count-badge">0 món</span>
+          </h3>
+          <p id="results-summary-text" class="results-subtext">
+            Sắp xếp ưu tiên theo tỷ lệ nguyên liệu có sẵn cao nhất
+          </p>
+        </div>
+
+        <!-- Sorting tabs -->
+        <div class="sort-controls">
+          <span class="sort-label">Sắp xếp:</span>
+          <select id="sort-select" class="sort-dropdown">
+            <option value="match-desc">Tỷ lệ khớp (% có sẵn) cao nhất</option>
+            <option value="missing-cost-asc">Chi phí mua thêm ít nhất</option>
+            <option value="time-asc">Nấu nhanh nhất</option>
+            <option value="total-cost-asc">Tổng chi phí tiết kiệm nhất</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Summary Cards -->
+      <div class="overview-metrics-bar">
+        <div class="metric-chip">
+          <span class="metric-icon">🟢</span>
+          <span class="metric-title">Nấu ngay không cần mua:</span>
+          <strong id="metric-full-match">0 món</strong>
+        </div>
+        <div class="metric-chip">
+          <span class="metric-icon">🟡</span>
+          <span class="metric-title">Cần mua thêm 1-2 nguyên liệu:</span>
+          <strong id="metric-partial-match">0 món</strong>
+        </div>
+        <div class="metric-chip">
+          <span class="metric-icon">👥</span>
+          <span class="metric-title">Đang tính cho:</span>
+          <strong id="metric-servings">2 người</strong>
+        </div>
+      </div>
+
+      <!-- Recipe Cards Grid Container -->
+      <div id="recipe-cards-grid" class="recipe-cards-grid">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: Chi Tiết Món Ăn & Quy Đổi Định Lượng (FR-04) -->
+  <div id="recipe-modal" class="modal-backdrop" hidden>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-recipe-title">
+      <button id="btn-close-modal" class="modal-close-btn" aria-label="Đóng cửa sổ">✕</button>
+      
+      <div class="modal-content">
+        <div class="modal-recipe-header">
+          <div class="modal-icon-badge" id="modal-dish-icon">🍲</div>
+          <div class="modal-header-meta">
+            <div class="modal-tags-row">
+              <span id="modal-match-badge" class="badge badge-success">100% Khớp</span>
+              <span id="modal-budget-badge" class="badge badge-outline">Tiêu chuẩn</span>
+              <span id="modal-time-badge" class="badge badge-outline">⏱️ 45 phút</span>
+              <span id="modal-diff-badge" class="badge badge-outline">Độ khó: Dễ</span>
+            </div>
+            <h2 id="modal-recipe-title" class="modal-dish-title">Thịt kho trứng</h2>
+          </div>
+        </div>
+
+        <!-- Serving adjuster inside modal -->
+        <div class="modal-serving-bar">
+          <span class="serving-bar-label">Khẩu phần hiển thị:</span>
+          <div class="modal-serving-controls">
+            <button id="modal-servings-minus" class="stepper-btn-sm">−</button>
+            <span id="modal-servings-display" class="modal-servings-val">2 người</span>
+            <button id="modal-servings-plus" class="stepper-btn-sm">+</button>
+          </div>
+          <span class="serving-bar-note">Định lượng được nhân tự động theo số người</span>
+        </div>
+
+        <!-- Ingredients breakdown table (FR-04 & FR-05) -->
+        <div class="modal-section">
+          <div class="modal-section-header">
+            <h4>Bảng Định Lượng & Chi Phí Nguyên Liệu</h4>
+            <div class="legend-pills">
+              <span class="legend-item"><span class="dot dot-have"></span> Đã có sẵn</span>
+              <span class="legend-item"><span class="dot dot-need"></span> Cần mua thêm</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="ingredient-table">
+              <thead>
+                <tr>
+                  <th>Nguyên liệu</th>
+                  <th>Định lượng cho <span class="table-servings-text">2</span> người</th>
+                  <th>Trạng thái</th>
+                  <th>Đơn giá ước tính</th>
+                  <th>Chi phí</th>
+                </tr>
+              </thead>
+              <tbody id="modal-ingredients-tbody">
+                <!-- Rendered by JS -->
+              </tbody>
+              <tfoot>
+                <tr class="tfoot-row">
+                  <td colspan="4"><strong>Tổng chi phí ước tính cả bữa:</strong></td>
+                  <td id="modal-total-cost" class="highlight-total">0 đ</td>
+                </tr>
+                <tr class="tfoot-row missing-cost-row">
+                  <td colspan="4"><strong>Chi phí phát sinh cần mua thêm:</strong></td>
+                  <td id="modal-missing-cost" class="highlight-missing">0 đ</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Cooking steps -->
+        <div class="modal-section">
+          <h4>Hướng Dẫn Nấu Từng Bước</h4>
+          <ol id="modal-steps-list" class="steps-list">
+            <!-- Rendered by JS -->
+          </ol>
+        </div>
+
+        <!-- Cooking Tips -->
+        <div class="modal-tips-card">
+          <span class="tip-icon">💡</span>
+          <div class="tip-content">
+            <strong>Mẹo nấu ngon từ Bếp Nhà:</strong>
+            <p id="modal-recipe-tip">Luộc trứng và bóc vỏ khéo léo để trứng bóng đẹp. Ướp thịt với chút nước mắm ngon trước khi kho để thịt đậm vị.</p>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-footer-actions">
+          <button id="btn-add-to-shopping" class="btn btn-outline">
+            🛒 Thêm nguyên liệu còn thiếu vào Danh sách Đi chợ
+          </button>
+          <button id="btn-close-modal-bottom" class="btn btn-secondary">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER: Danh Sách Mua Sắm Thông Minh (FR-05) -->
+  <div id="shopping-drawer" class="drawer-backdrop" hidden>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <div class="drawer-header">
+        <div class="drawer-title-wrap">
+          <span class="drawer-icon">🛒</span>
+          <div>
+            <h3 id="drawer-title" class="drawer-title">Danh Sách Mua Sắm</h3>
+            <span class="drawer-subtitle">Chỉ liệt kê nguyên liệu còn thiếu cần mua thêm</span>
+          </div>
+        </div>
+        <button id="btn-close-drawer" class="btn-icon" aria-label="Đóng danh sách">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Target Servings summary -->
+        <div class="shopping-summary-card">
+          <div class="summary-row">
+            <span>Khẩu phần:</span>
+            <strong id="drawer-servings-text">2 người ăn</strong>
+          </div>
+          <div class="summary-row">
+            <span>Số món đã chọn:</span>
+            <strong id="drawer-recipes-count">0 món</strong>
+          </div>
+          <div class="summary-row total-row">
+            <span>Dự kiến cần chi thêm:</span>
+            <strong id="drawer-total-budget" class="text-accent">0 đ</strong>
+          </div>
+        </div>
+
+        <!-- Items list with checkboxes -->
+        <div class="shopping-items-wrap">
+          <div class="shopping-tools-bar">
+            <span class="items-count-text" id="shopping-items-count">0 nguyên liệu</span>
+            <button id="btn-clear-cart" class="btn-link-danger">Làm mới</button>
+          </div>
+
+          <div id="shopping-list-items" class="shopping-list-items">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button id="btn-copy-shopping" class="btn btn-primary btn-block">
+          📋 Sao chép danh sách đi chợ (Zalo / SMS)
+        </button>
+        <button id="btn-print-shopping" class="btn btn-secondary btn-block">
+          🖨️ In / Tải PDF danh sách
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Database & Relational Schema Viewer (Mục 5 PRD) -->
+  <div id="db-modal" class="modal-backdrop" hidden>
+    <div class="modal-dialog modal-lg" role="dialog" aria-modal="true" aria-labelledby="db-modal-title">
+      <button id="btn-close-db" class="modal-close-btn" aria-label="Đóng">✕</button>
+      
+      <div class="modal-content">
+        <div class="db-modal-header">
+          <div class="db-icon">🗄️</div>
+          <div>
+            <h2 id="db-modal-title" class="modal-title">Cơ Sở Dữ Liệu & Mock API</h2>
+            <p class="modal-subtitle">Đối soát cấu trúc bảng Relational Database & Mock Data theo Mục 5 PRD</p>
+          </div>
+        </div>
+
+        <!-- Database Tabs -->
+        <div class="db-tabs">
+          <button class="db-tab active" data-dbtab="ingredients">Bảng Ingredients</button>
+          <button class="db-tab" data-dbtab="recipes">Bảng Recipes</button>
+          <button class="db-tab" data-dbtab="recipe-ingredients">Bảng Recipe_Ingredients</button>
+          <button class="db-tab" data-dbtab="sql">SQL Query & Benchmark</button>
+        </div>
+
+        <!-- DB Tab Content Containers -->
+        <div id="db-tab-content" class="db-tab-content">
+          <!-- Rendered via JS -->
+        </div>
+
+        <div class="modal-footer-actions">
+          <button id="btn-close-db-bottom" class="btn btn-secondary">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <span class="footer-logo">🍳 Bếp Nhà</span>
+          <p>Trợ lý lên thực đơn thông minh từ nguyên liệu có sẵn. Giúp hàng triệu gia đình Việt nấu ăn thảnh thơi, tiết kiệm và trọn vẹn dinh dưỡng.</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>4 Yếu Tố Cốt Lõi (Scope)</h4>
+        <ul>
+          <li>🥩 Nguyên liệu sẵn có &amp; Cần mua thêm</li>
+          <li>⏱️ Thời gian chế biến (15', 30', 45'+)</li>
+          <li>💰 Ngân sách &amp; Chi phí ước tính</li>
+          <li>👥 Khẩu phần tự động quy đổi (1-10 người)</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Yêu Cầu Phi Chức Năng</h4>
+        <ul>
+          <li>⚡ Phản hồi &lt; 500ms (High Availability)</li>
+          <li>📱 Giao diện Mobile First mượt mà</li>
+          <li>🛡️ Thiết kế chuẩn mở rộng AI/ML tương lai</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Bếp Nhà – Smart Kitchen Menu Assistant. Được xây dựng chuẩn theo Tài liệu Yêu cầu Sản phẩm (PRD).</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
